@@ -1,0 +1,19 @@
+PROJET ANDROID OPTA V10.1 POUR GITHUB
+
+IMPORTANT : COPIER LE CONTENU de ce ZIP a la RACINE du depot GitHub,
+pas dans un sous-dossier OPTA_Test_Mobile_V3_Android.
+
+La racine du depot doit afficher :
+- .github/workflows/build-apk.yml
+- app/build.gradle.kts
+- app/src/main/AndroidManifest.xml
+- build.gradle.kts
+- settings.gradle.kts
+- gradle.properties
+
+Retirer l ancien .github/workflows/android.yml pour ne garder qu un
+workflow de compilation. GitHub Actions > Construire APK OPTA V3
+> Run workflow, puis telecharger l artifact OPTA-Test-Mobile-3-APK.
+
+Compilation et validation sur telephone/OPTA non realisees ici.
+Ne pas utiliser sur la machine pneumatique avant verification des securites.
