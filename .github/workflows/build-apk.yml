@@ -18,27 +18,32 @@ jobs:
         uses: actions/setup-java@v5
         with:
           distribution: temurin
-          java-version: "17"
+          java-version: '17'
 
       - name: Installer le SDK Android
         uses: android-actions/setup-android@v4
         with:
-          packages: "platform-tools platforms;android-35 build-tools;35.0.0"
+          packages: 'platform-tools platforms;android-35 build-tools;35.0.0'
 
       - name: Preparer Gradle 8.9
         uses: gradle/actions/setup-gradle@v6
         with:
-          gradle-version: "8.9"
+          gradle-version: '8.9'
           validate-wrappers: false
           cache-provider: basic
 
+      - name: Verifier les dossiers Android
+        run: |
+          test -f settings.gradle.kts || { echo 'ERREUR: settings.gradle.kts absent a la racine'; exit 1; }
+          test -f app/build.gradle.kts || { echo 'ERREUR: app/build.gradle.kts absent; le dossier app doit etre a la racine'; exit 1; }
+          test -f app/src/main/AndroidManifest.xml || { echo 'ERREUR: app/src/main/AndroidManifest.xml absent'; exit 1; }
+
       - name: Compiler APK
-        working-directory: OPTA_Test_Mobile_V3_Android
         run: gradle :app:assembleDebug --no-daemon --console=plain --stacktrace
 
       - name: Enregistrer APK
         uses: actions/upload-artifact@v4
         with:
           name: OPTA-Test-Mobile-3-APK
-          path: OPTA_Test_Mobile_V3_Android/app/build/outputs/apk/debug/app-debug.apk
+          path: app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
